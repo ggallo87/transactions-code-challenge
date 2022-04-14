@@ -46,4 +46,20 @@ public class TransactionDBTest {
         assertEquals(1000, list.get(0).getAmount());
     }
 
+    @Test
+    public void testGetByParentId() throws Exception {
+        tdb.addTransaction(transaction);
+
+        transaction = new Transaction();
+        transaction.setId(2L);
+        transaction.setType("moeney");
+        transaction.setAmount(10000);
+        transaction.setParent_id(1L);
+        tdb.addTransaction(transaction);
+
+        List<Transaction> transactionList = tdb.getTransactionIdsToSum(2L);
+        assertNotNull(transactionList);
+        assertEquals(0, transactionList.size());
+    }
+
 }

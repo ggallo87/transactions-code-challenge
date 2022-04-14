@@ -40,4 +40,18 @@ public class TransactionService {
         });
         return ids;
     }
+
+    public double getSum(Long parentId){
+        double sum = 0;
+        Transaction transaction = db.getTransaction(parentId.toString());
+        if (transaction != null) {
+            sum = transaction.getAmount();
+        }
+
+        List<Transaction> transactionList = db.getTransactionIdsToSum(parentId);
+        if (transactionList.size() > 0) {
+            sum += transactionList.stream().mapToDouble(Transaction::getAmount).sum();
+        }
+        return sum;
+    }
 }

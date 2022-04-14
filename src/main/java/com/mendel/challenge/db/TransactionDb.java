@@ -37,5 +37,9 @@ public class TransactionDb {
         ).collect(Collectors.toList());
     }
 
-
+    public  List<Transaction> getTransactionIdsToSum(Long key) {
+        return transactionList.values().stream().filter(
+                m -> m.getParent_id() == key
+        ).collect(Collectors.toList());
+    }
 }

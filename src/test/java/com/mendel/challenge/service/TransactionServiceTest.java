@@ -20,6 +20,13 @@ public class TransactionServiceTest {
         transactionRequest.setType("cars");
         transactionRequest.setParent_id(null);
         transactionRequest.setAmount(15000);
+        service.putTransaction(transactionRequest, 2L);
+
+        transactionRequest = new TransactionRequest();
+        transactionRequest.setType("cars");
+        transactionRequest.setParent_id(2L);
+        transactionRequest.setAmount(150000);
+        service.putTransaction(transactionRequest, 3L);
     }
 
     @Test
@@ -29,15 +36,22 @@ public class TransactionServiceTest {
 
     @Test
     public void getByType(){
-        service.putTransaction(transactionRequest, 2L);
-
-        transactionRequest = new TransactionRequest();
-        transactionRequest.setType("cars");
-        transactionRequest.setParent_id(null);
-        transactionRequest.setAmount(150000);
-        service.putTransaction(transactionRequest, 3L);
         List<Long> l = service.getByType("cars");
         assertNotNull(l);
         assertEquals(2, l.size());
+    }
+
+    @Test
+    public void getSum() {
+        double suma = service.getSum(2L);
+        assertNotNull(suma);
+        assertEquals(165000, suma);
+    }
+
+    @Test
+    public void getSumWithParentId() {
+        double suma = service.getSum(3L);
+        assertNotNull(suma);
+        assertEquals(150000, suma);
     }
 }
