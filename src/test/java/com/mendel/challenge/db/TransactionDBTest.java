@@ -1,11 +1,14 @@
-import com.mendel.challenge.db.TransactionDb;
+package com.mendel.challenge.db;
+
 import com.mendel.challenge.model.Transaction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TransactionTest {
+public class TransactionDBTest {
 
     private final TransactionDb tdb = TransactionDb.getInstance();
     private Transaction transaction;
@@ -30,10 +33,17 @@ public class TransactionTest {
 
     @Test
     public void testGetTransactionFromDB(){
-        Transaction response = tdb.getTransaction(transaction.getId() + "-" + transaction.getType());
+        Transaction response = tdb.getTransaction(transaction.getId().toString());
         assertNotNull(response);
         assertEquals("test", response.getType());
+    }
 
+    @Test
+    public void testGetTransactionByType(){
+        List<Transaction> list = tdb.getTransactionByType("test");
+        assertNotNull(list);
+        assertEquals(1, list.size());
+        assertEquals(1000, list.get(0).getAmount());
     }
 
 }

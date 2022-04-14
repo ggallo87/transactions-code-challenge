@@ -3,7 +3,9 @@ package com.mendel.challenge.db;
 import com.mendel.challenge.model.Transaction;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class TransactionDb {
 
@@ -22,11 +24,17 @@ public class TransactionDb {
     }
 
     public void addTransaction(Transaction t) throws Exception{
-        transactionList.put(t.getId() + "-" + t.getType(), t);
+        transactionList.put(t.getId().toString(), t);
     }
 
     public Transaction getTransaction(String key) {
         return transactionList.get(key);
+    }
+
+    public List<Transaction> getTransactionByType(String key) {
+        return transactionList.values().stream().filter(
+                m -> m.getType() == key
+        ).collect(Collectors.toList());
     }
 
 
