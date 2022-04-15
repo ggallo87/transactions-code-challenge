@@ -51,13 +51,13 @@ public class TransactionDBTest {
         tdb.addTransaction(transaction);
 
         transaction = new Transaction();
-        transaction.setId(2L);
+        transaction.setId(4L);
         transaction.setType("moeney");
         transaction.setAmount(10000);
-        transaction.setParent_id(1L);
+        transaction.setParent_id(5L);
         tdb.addTransaction(transaction);
 
-        List<Transaction> transactionList = tdb.getTransactionIdsToSum(2L);
+        List<Transaction> transactionList = tdb.getTransactionIdsToSum(4L);
         assertNotNull(transactionList);
         assertEquals(0, transactionList.size());
     }

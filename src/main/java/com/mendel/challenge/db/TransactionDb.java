@@ -33,7 +33,7 @@ public class TransactionDb {
 
     public List<Transaction> getTransactionByType(String key) {
         return transactionList.values().stream().filter(
-                m -> m.getType() == key
+                m -> m.getType().contains(key)
         ).collect(Collectors.toList());
     }
 
